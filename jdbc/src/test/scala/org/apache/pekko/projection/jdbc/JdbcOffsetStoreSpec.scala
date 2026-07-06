@@ -101,8 +101,7 @@ object JdbcOffsetStoreSpec {
 
     def jdbcSessionFactory(): PureJdbcSession =
       new PureJdbcSession(() => {
-        val lookup = java.lang.invoke.MethodHandles.lookup()
-        lookup.ensureInitialized(lookup.findClass("org.h2.Driver"))
+        Class.forName("org.h2.Driver")
         val conn = DriverManager.getConnection("jdbc:h2:mem:offset-store-test-jdbc;DB_CLOSE_DELAY=-1")
         conn.setAutoCommit(false)
         conn

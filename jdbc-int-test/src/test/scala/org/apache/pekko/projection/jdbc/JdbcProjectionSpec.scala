@@ -87,8 +87,7 @@ object JdbcProjectionSpec {
   class PureJdbcSession extends JdbcSession {
 
     lazy val conn = {
-      val lookup = java.lang.invoke.MethodHandles.lookup()
-      lookup.ensureInitialized(lookup.findClass("org.h2.Driver"))
+      Class.forName("org.h2.Driver")
       val c = DriverManager.getConnection("jdbc:h2:mem:jdbc-projection-test;DB_CLOSE_DELAY=-1")
       c.setAutoCommit(false)
       c

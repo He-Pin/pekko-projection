@@ -55,8 +55,7 @@ object JdbcContainerOffsetStoreSpec {
       val container = _container.get
 
       new PureJdbcSession(() => {
-        val lookup = java.lang.invoke.MethodHandles.lookup()
-        lookup.ensureInitialized(lookup.findClass(container.getDriverClassName))
+        Class.forName(container.getDriverClassName)
         val conn =
           DriverManager.getConnection(container.getJdbcUrl, container.getUsername, container.getPassword)
         conn.setAutoCommit(false)
